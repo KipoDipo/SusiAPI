@@ -50,9 +50,6 @@ def print_report(report_html_text, show_all = False, session = None):
                     semester.ECTS_Optional += ects
             elif grade is not None:
                 semester.Failed_Subjects += subject
-            #elif subject[0] == 'ФМИ - Спорт_1':
-            #    semester.Passed_Subjects += [f'     - {td_tags[i - 2].text.strip()}']
-                #semester.Grade += 6
             else:
                 semester.Undecided_Subjects += subject
 
