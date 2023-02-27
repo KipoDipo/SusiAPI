@@ -19,7 +19,7 @@ class Session:
         self.ECTS_All = 0
         self.ECTS_Mandatory = 0
         self.ECTS_Optional= 0
-        self.Grade = 0
+        self.GradeSum = 0
 
     def print(self) -> str:
         colorama_init()
@@ -42,7 +42,11 @@ class Session:
             print(f"{Fore.CYAN}Total ECTS Mandatory {Fore.LIGHTCYAN_EX}{self.ECTS_Mandatory:>12}")
         if self.ECTS_Optional != 0:
             print(f"{Fore.CYAN}Total ECTS Optional  {Fore.LIGHTCYAN_EX}{self.ECTS_Optional:>12}")
-        if self.Grade != 0:
-            print(f"{Fore.MAGENTA}Grade                {Fore.LIGHTMAGENTA_EX}{self.Grade:>12.2f}")
+        if self.GradeSum != 0:
+            avg = self.GradeSum
+            if len(self.Passed_Subjects) + len(self.Failed_Subjects) != 0:
+                avg /= len(self.Passed_Subjects) + len(self.Failed_Subjects)
+                
+            print(f"{Fore.MAGENTA}Grade                {Fore.LIGHTMAGENTA_EX}{avg:>12.2f}")
             
         return str

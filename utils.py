@@ -23,8 +23,8 @@ def print_report(report_html_text, show_all = False, session = None):
                 semester.Failed = len(semester.Failed_Subjects)
                 semester.Passed = len(semester.Passed_Subjects)
                 semester.Undecided = len(semester.Undecided_Subjects)
-                if (semester.Passed + semester.Failed) != 0:
-                    semester.Grade = semester.Grade / (semester.Passed + semester.Failed)
+                #if semester.Passed + semester.Failed != 0:
+                #    semester.GradeSum = semester.GradeSum / (semester.Passed + semester.Failed)
                 semester = Session()
             
             if i != len(td_tags) - 1:
@@ -36,7 +36,7 @@ def print_report(report_html_text, show_all = False, session = None):
             ects = float(td_tags[i + 3].text.replace(',', '.'))
             if len(td_tags[i + 2].text) > 2:
                 grade = float(td_tags[i + 2].text)
-                semester.Grade += grade
+                semester.GradeSum += grade
                 subject = [f'{grade:.2f} - {td_tags[i - 2].text.strip()}']
             else:
                 grade = None
@@ -58,9 +58,9 @@ def print_report(report_html_text, show_all = False, session = None):
     allECTS_Optional = 0
     last_semester = 0
     for i, sem in enumerate(semesters):
-        if sem.Grade == 0 and not show_all:
+        if sem.GradeSum == 0 and not show_all:
             break
-        if sem.Grade != 0:
+        if sem.GradeSum != 0:
             allECTS += sem.ECTS_All
             allECTS_Mandatory += sem.ECTS_Mandatory
             allECTS_Optional += sem.ECTS_Optional
@@ -80,9 +80,11 @@ def print_report(report_html_text, show_all = False, session = None):
     print(f'{Back.CYAN}{Fore.BLACK}Total ECTS Mandatory {Back.LIGHTCYAN_EX}{Fore.BLACK}{allECTS_Mandatory:>12}{Style.RESET_ALL}')
     print(f'{Back.CYAN}{Fore.BLACK}Total ECTS Optional  {Back.LIGHTCYAN_EX}{Fore.BLACK}{allECTS_Optional:>12}{Style.RESET_ALL}')
     if last_semester - 1 > 1:
-        avg = (semesters[last_semester - 1].Grade + semesters[last_semester - 2].Grade) / 2
+        last_2_sem_subj_count = len(semesters[last_semester - 1].Passed_Subjects) + len(semesters[last_semester - 1].Failed_Subjects) + len(semesters[last_semester - 2].Passed_Subjects) + len(semesters[last_semester - 2].Failed_Subjects)
+        last_2_sem_gradesum = semesters[last_semester - 1].GradeSum + semesters[last_semester - 2].GradeSum
+        avg = last_2_sem_gradesum / last_2_sem_subj_count
     elif last_semester - 1 == 0:
-        avg = semesters[0].Grade
+        avg = semesters[0].GradeSum / (len(semesters[0].Passed_Subjects) + len(semesters[0].Failed_Subjects))
     else:
         avg = -1
 
