@@ -79,7 +79,7 @@ def print_report(report_html_text, show_all = False, session = None):
     print(f'{Back.CYAN}{Fore.BLACK}Total ECTS           {Back.LIGHTCYAN_EX}{Fore.BLACK}{allECTS:>12}{Style.RESET_ALL}')
     print(f'{Back.CYAN}{Fore.BLACK}Total ECTS Mandatory {Back.LIGHTCYAN_EX}{Fore.BLACK}{allECTS_Mandatory:>12}{Style.RESET_ALL}')
     print(f'{Back.CYAN}{Fore.BLACK}Total ECTS Optional  {Back.LIGHTCYAN_EX}{Fore.BLACK}{allECTS_Optional:>12}{Style.RESET_ALL}')
-    if last_semester - 1 > 1:
+    if last_semester - 1 >= 1:
         last_2_sem_subj_count = len(semesters[last_semester - 1].Passed_Subjects) + len(semesters[last_semester - 1].Failed_Subjects) + len(semesters[last_semester - 2].Passed_Subjects) + len(semesters[last_semester - 2].Failed_Subjects)
         last_2_sem_gradesum = semesters[last_semester - 1].GradeSum + semesters[last_semester - 2].GradeSum
         avg = last_2_sem_gradesum / last_2_sem_subj_count
