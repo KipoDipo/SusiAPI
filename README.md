@@ -10,14 +10,18 @@ __This is only a proof of concept.__
 ### Windows
 Run `install.bat`
 
-### Manual/Linux/MacOS
-Run `pip install -r requirements.txt`
+### Linux/MacOS
+Run `py -m venv venv`\
+then `./venv/Scripts/activate`\
+then `pip install -r requirements.txt`
 
 ## Usage
 
 If you ran the installer, you can simply run `run.bat` to start the program.
 
-Otherwise, run `py susi_api.py` in the project directory.
+Otherwise:\
+Run `venv\Scripts\activate.bat` (Windows) or `./venv/Scripts/activate` (MacOS/Linux)\
+then `py susi_api.py` in the project directory.
 
 ## Examples
 
